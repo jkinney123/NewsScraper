@@ -17,8 +17,18 @@ var ArticleSchema = new Schema({
 
   },
 
-  date: {
-    type: String
+  snippet: {
+    type: String,
+  },
+
+  articleCreated: {
+    type: Date,
+    default: Date.now
+  },
+  
+  isSaved: {
+    type: Boolean,
+    default: false
   },
   // `link` is required and of type String
   link: {

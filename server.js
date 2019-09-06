@@ -29,7 +29,7 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
@@ -42,7 +42,7 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".WSJTheme--story").each(function(i, element) {
+    $("h3.WSJTheme--headline").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -55,6 +55,7 @@ app.get("/scrape", function(req, res) {
         .attr("href");
       result.summary = $(this)
         .children("p")
+        .siblings("p")
         .text().trim();
 
       // Create a new Article using the `result` object built from scraping
