@@ -29,7 +29,7 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, {useMongoClient: true});
 
 
 // Routes
@@ -110,7 +110,8 @@ app.get("/articles", function(req, res) {
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.findOne({ _id: req.params.id })
+  db.Article
+    .findOne({ _id: req.params.id })
     // ..and populate all of the notes associated with it
     .populate("note")
     .then(function(dbArticle) {
@@ -141,6 +142,43 @@ app.post("/articles/:id", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+app.put("/saved/:id", function(req, res) {
+  db.Article
+  .findByIdAndUpdate({_id: req.params.id }, { $set: {isSaved: true}})
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+});
+
+
+app.get("/saved", function(req, res) {
+
+  db.Article
+  .find({ isSaved: true})
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+});
+
+app.put("/delete/:id", function(req, res) {
+
+  db.Article
+  .findByIdAndUpdate({_id: req.params.id }, { $set: {isSaved: false}})
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
 });
 
 // Start the server
