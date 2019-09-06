@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <title>Scraping With Mongoose</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    
     <style>
       body { background-color: #F2F6D0 }
       #wrapper {
@@ -37,13 +41,67 @@
     </style>
   </head>
   <body>
-    <div id="wrapper">
-      <h1>Mongo Scraper</h1>
-      <h2><i>Scrape and make notes on articles from the Wall Street Journal.</i></h2>
-      <div id="articles"></div>
-      <div id="notes"></div>
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title"></div>
+          </div>
+          <div class="modal-body">
+            <p id="note">Notes</p>
+            <div class="input"></div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+    <div class="container">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Mongo Scraper</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="saved.html">Saved Articles</a>
+            </li>
+          </ul>
+          <a href="https://github.com/jkinney123/NewsScraper" class="my-2 my-sm-0 git-icon"><i class="fa fa-github" aria-hidden="true"></i></a>
+        </div>
+      </nav>
+
+      <div class="jumbotron text-center">
+        <h1>WSJ News Scraper</h1>
+        <p>Save notes for each article</p>
+        <a class="btn-fetch btn btn-primary" href="#" role="button">Grab New Articles</a>
+      </div>
+
+      <div class="row" id="articles">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h4></h4>
+              <p class="card-text"></p>
+              <a href="#" class="btn btn-outline-primary btn-sm">Comment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+   
+   
+   
+   
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="app.js"></script>
   </body>
 </html>
