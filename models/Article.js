@@ -17,10 +17,6 @@ var ArticleSchema = new Schema({
 
   },
 
-  snippet: {
-    type: String,
-  },
-
   articleCreated: {
     type: Date,
     default: Date.now
