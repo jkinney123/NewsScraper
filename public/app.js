@@ -3,15 +3,31 @@ $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-  }
+    $("#articles").append(
+     "<div class='col-sm-4' style='margin-bottom:65px;'><div class ='card'><div class='card-body'><a class='title-link' href='" + data[i].link + "'><h5>" + data[i].title + "</h5></a><hr><p class='card-text'>" + data[i].summary + "</p><button data-id='" + data[i]._id + "' class='btn-note btn btn-outline-primary btn-sm' data-toggle='modal' data-target='#myModal' style'margin-right:10px;'>Note</button><button id='btn-save' data-id='" + data[i]._id + "' class='btn btn-outline-primary btn-sm'>Save Article</button></div></div></div>"
+    )
+} 
+console.log(data);
 });
+
+$(document).on("click", ".btn-fetch", function() {
+  alert('Articles updated!');
+
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  })
+  .done(function(data) {
+    location.reload();
+  })
+})
 
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", ".btn-note", function() {
   // Empty the notes from the note section
-  $("#notes").empty();
+  $(".modal-title").empty();
+  $(".input").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
 
@@ -24,13 +40,12 @@ $(document).on("click", "p", function() {
     .then(function(data) {
       console.log(data);
       // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
+      $(".modal-title").append("<h3>" + data.title + "</h3>");
       // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
       // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      $(".input").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      $(".input").append("<button data-id='" + data._id + "' id='savenote' class='btn btn-primary btn-sm' style=margin-top:20px; 'data-dismiss='modal>Save Note</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -63,10 +78,30 @@ $(document).on("click", "#savenote", function() {
       // Log the response
       console.log(data);
       // Empty the notes section
-      $("#notes").empty();
+      
     });
 
   // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+
+$(document).on("click", "#btn-save", function() {
+  $(this).addClass("disabled");
+  var thisId = $(this).attr("data-id");
+  console.log(thisId);
+
+  $.ajax({
+    method: "PUT",
+    url: "/saved/" + thisId,
+  })
+  .then(function(data) {
+    // Log the response
+    console.log(data);
+    // Empty the notes section
+    
+  });
+
+  
 });
