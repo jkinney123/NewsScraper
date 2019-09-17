@@ -2,7 +2,8 @@
   "name": "newsscraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "homepage": "https://jkinney123.github.io/NewsScraper/ ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,14 +14,15 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jkinney123/NewsScraper/issues"
+    "url": "https://github.com/jkinney123/NewsScraper/"
   },
-  "homepage": "https://github.com/jkinney123/NewsScraper/public/index",
+  
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "gh-pages": "^2.1.1",
     "mongoose": "^5.6.9",
     "morgan": "^1.9.1"
   }
